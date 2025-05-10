@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Mood Journal</string>
+    <string name="unknown_value">unknown</string>
+    <string name="button_toolbar_menu_description">Navigation Menu</string>
 </resources>
