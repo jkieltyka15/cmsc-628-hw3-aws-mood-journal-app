@@ -1,15 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>                   <!-- Black -->
-    <color name="white">#FFFFFFFF</color>                   <!-- White -->
-    <color name="toolbar">#161D63</color>                   <!-- Dark Royal Blue -->
-    <color name="toolbar_text">#FFFFFFFF</color>            <!-- White -->
-    <color name="login_email_text">#FF000000</color>        <!-- Black -->
-    <color name="login_email_hint">#B0BEC5</color>          <!-- Grey -->
-    <color name="login_password_text">#FF000000</color>     <!-- Black -->
-    <color name="login_password_hint">#B0BEC5</color>       <!-- Grey -->
-    <color name="login_error_text">#CC0000</color>          <!-- Red -->
-    <color name="button_login">#161D63</color>              <!-- Dark Royal Blue -->
-    <color name="button_login_text">#FFFFFFFF</color>       <!-- White -->
-    <color name="signup_text">#161D63</color>               <!-- Dark Royal Blue -->
+    <color name="black">#FF000000</color>                           <!-- Black -->
+    <color name="white">#FFFFFFFF</color>                           <!-- White -->
+    <color name="toolbar">#161D63</color>                           <!-- Dark Royal Blue -->
+    <color name="toolbar_text">#FFFFFFFF</color>                    <!-- White -->
+    <color name="login_email_text">#FF000000</color>                <!-- Black -->
+    <color name="login_email_hint">#6F7378</color>                  <!-- Dark Gray -->
+    <color name="login_password_text">#FF000000</color>             <!-- Black -->
+    <color name="login_password_hint">#6F7378</color>               <!-- Dark Gray -->
+    <color name="signup_password_confirm_text">#FF000000</color>    <!-- Black -->
+    <color name="signup_password_confirm_hint">#6F7378</color>      <!-- Dark Gray -->
+    <color name="login_error_text">#CC0000</color>                  <!-- Red -->
+    <color name="button_login">#161D63</color>                      <!-- Dark Royal Blue -->
+    <color name="button_login_text">#FFFFFFFF</color>               <!-- White -->
+    <color name="signup_text">#161D63</color>                       <!-- Dark Royal Blue -->
+    <color name="button_signup">#161D63</color>                     <!-- Dark Royal Blue -->
+    <color name="button_signup_text">#FFFFFFFF</color>              <!-- White -->
+    <color name="login_text">#161D63</color>                        <!-- Dark Royal Blue -->
 </resources>

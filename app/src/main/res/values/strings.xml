@@ -5,7 +5,11 @@
     <string name="login_email_accessibility">email</string>
     <string name="login_password_hint">password</string>
     <string name="login_password_accessibility">password</string>
+    <string name="signup_password_confirm_hint">confirm password</string>
+    <string name="signup_password_confirm_accessibility">confirm password</string>
     <string name="button_login_text">Login</string>
+    <string name="login_text">Login</string>
+    <string name="button_signup_text">Create Account</string>
     <string name="signup_text">Sign Up</string>
     <string name="button_toolbar_menu_description">Navigation Menu</string>
 </resources>

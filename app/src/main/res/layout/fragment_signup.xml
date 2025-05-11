@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".LoginFragment">
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="108sp" />
+
+    <EditText
+        android:id="@+id/editText_signup_email"
+        android:layout_width="320dp"
+        android:layout_height="48dp"
+        android:layout_gravity="center_horizontal"
+        android:autofillHints="@string/login_email_hint"
+        android:ems="10"
+        android:hint="@string/login_email_accessibility"
+        android:imeActionLabel="@string/login_email_accessibility"
+        android:inputType="textEmailAddress"
+        android:maxWidth="320dp"
+        android:textColor="@color/login_email_text"
+        android:textColorHint="@color/login_email_hint" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="36sp" />
+
+    <EditText
+        android:id="@+id/editText_signup_password"
+        android:layout_width="320dp"
+        android:layout_height="48dp"
+        android:layout_gravity="center_horizontal"
+        android:autofillHints="@string/login_password_hint"
+        android:ems="10"
+        android:hint="@string/login_password_accessibility"
+        android:inputType="textPassword"
+        android:maxWidth="320dp"
+        android:textColor="@color/login_password_text"
+        android:textColorHint="@color/login_password_hint" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="36sp" />
+
+    <EditText
+        android:id="@+id/editText_signup_password_confirm"
+        android:layout_width="320dp"
+        android:layout_height="48dp"
+        android:layout_gravity="center_horizontal"
+        android:autofillHints="@string/signup_password_confirm_hint"
+        android:ems="10"
+        android:hint="@string/signup_password_confirm_accessibility"
+        android:inputType="textPassword"
+        android:maxWidth="320dp"
+        android:textColor="@color/signup_password_confirm_text"
+        android:textColorHint="@color/signup_password_confirm_hint" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="12sp" />
+
+    <TextView
+        android:id="@+id/textView_signup_error"
+        android:layout_width="match_parent"
+        android:layout_height="36sp"
+        android:textAlignment="center"
+        android:textColor="@color/login_error_text" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="12sp" />
+
+    <Button
+        android:id="@+id/button_signup"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:backgroundTint="@color/button_signup"
+        android:maxWidth="350dp"
+        android:text="@string/button_signup_text"
+        android:textColor="@color/button_signup_text" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="36sp" />
+
+    <TextView
+        android:id="@+id/textView_login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/login_text"
+        android:textAlignment="center"
+        android:textColor="@color/login_text" />
+
+</LinearLayout>
