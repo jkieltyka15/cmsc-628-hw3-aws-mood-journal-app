@@ -1,5 +1,11 @@
 <resources>
     <string name="app_name">Mood Journal</string>
     <string name="unknown_value">unknown</string>
+    <string name="login_email_hint">email</string>
+    <string name="login_email_accessibility">email</string>
+    <string name="login_password_hint">password</string>
+    <string name="login_password_accessibility">password</string>
+    <string name="button_login_text">Login</string>
+    <string name="signup_text">Sign Up</string>
     <string name="button_toolbar_menu_description">Navigation Menu</string>
 </resources>

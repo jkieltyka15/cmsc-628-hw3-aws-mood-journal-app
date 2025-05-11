@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
 
+    private LoginFragment loginFragment = new LoginFragment();
+
     /**
      * Called when Activity is created
      *
@@ -17,5 +19,12 @@ public class MainActivity extends AppCompatActivity {
         // perform standard setup
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // display login fragment
+        if (null == savedInstanceState) {
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fragment_container_main, loginFragment)
+                    .commit();
+        }
     }
 }
