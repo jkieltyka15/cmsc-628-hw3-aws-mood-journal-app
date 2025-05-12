@@ -13,6 +13,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private final LoginFragment loginFragment = new LoginFragment();
     private final SignupFragment signupFragment = new SignupFragment();
+    private final JournalFragment journalFragment = new JournalFragment();
 
 
     private class ChangeFragmentWork implements Runnable {
@@ -38,7 +39,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         @Override
         public void run() {
 
-            // display dashboard fragment
+            // display fragment
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.fragment_container_main, fragment)
                     .commit();
@@ -81,6 +82,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // login button clicked in login fragment
         if (R.id.button_login == elementId) {
             // @todo Implement logging into AWS
+            handler.post(new ChangeFragmentWork(journalFragment));
         }
 
         // signup text clicked in login fragment
@@ -90,11 +92,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         // signup button clicked in signup fragment
         else if (R.id.button_signup == elementId) {
-            // @todo Implement logging into AWS
+            // @todo Implement signing up with AWS
+            handler.post(new ChangeFragmentWork(loginFragment));
         }
 
         // login text clicked in signup fragment
         else if (R.id.textView_login == elementId) {
+            handler.post(new ChangeFragmentWork(loginFragment));
+        }
+
+        // login text clicked in signup fragment
+        else if (R.id.toolbar_menu_sign_out == elementId) {
+            // @todo Implement signing out of AWS
             handler.post(new ChangeFragmentWork(loginFragment));
         }
     }

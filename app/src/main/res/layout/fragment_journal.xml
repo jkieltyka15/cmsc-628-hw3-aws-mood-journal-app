@@ -53,6 +53,6 @@
         android:id="@+id/fragment_container_journal"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:layout="@layout/fragment_history" />
+        tools:layout="@layout/fragment_entry" />
 
 </LinearLayout>

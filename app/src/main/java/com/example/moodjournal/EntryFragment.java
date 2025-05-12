@@ -26,6 +26,6 @@ public class EntryFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         // inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_login, container, false);
+        return inflater.inflate(R.layout.fragment_entry, container, false);
     }
 }

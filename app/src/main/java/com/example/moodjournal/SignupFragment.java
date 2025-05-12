@@ -34,8 +34,7 @@ public class SignupFragment extends Fragment implements View.OnClickListener {
 
         // context must implement OnClickListener
         else {
-            throw new ClassCastException(context.toString()
-                    + " must implement OnClickListener");
+            throw new ClassCastException(context + " must implement OnClickListener");
         }
     }
 
