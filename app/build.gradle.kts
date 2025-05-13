@@ -33,6 +33,9 @@ android {
 
 dependencies {
 
+    implementation(libs.aws.android.sdk.mobile.client)
+    implementation(libs.aws.android.sdk.auth.userpools)
+
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.activity)
