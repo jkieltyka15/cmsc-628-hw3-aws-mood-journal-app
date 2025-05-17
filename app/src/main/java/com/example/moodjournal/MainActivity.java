@@ -107,4 +107,76 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             handler.post(new ChangeFragmentWork(loginFragment));
         }
     }
+
+
+    /**
+     * Actions to perform when Cognito sign in is successful
+     */
+    public void signInSuccess() {
+
+    }
+
+
+    /**
+     * Actions to perform when Cognito sign in fails
+     *
+     * @param message: Reason why sign in failed
+     */
+    public void signInFailed(String message) {
+
+    }
+
+
+    /**
+     * Actions to perform when Cognito sign up is successful
+     */
+    public void signUpSuccess() {
+
+    }
+
+
+    /**
+     * Actions to perform when Cognito sign up fails
+     *
+     * @param message: Reason why sign up failed
+     */
+    public void signUpFailed(String message) {
+
+    }
+
+
+    /**
+     * Actions to perform when confirming sign up is successful
+     */
+    public void confirmSignUpSuccess() {
+
+    }
+
+
+    /**
+     * Actions to perform when confirming sign up fails
+     *
+     * @param message: Reason why confirming sign up failed
+     */
+    public void confirmSignUpFailed(String message) {
+
+    }
+
+
+    /**
+     * Actions to perform when password reset is successful
+     */
+    public void passwordResetSuccess() {
+
+    }
+
+
+    /**
+     * Actions to perform when password reset fails
+     *
+     * @param message: Reason why password reset failed
+     */
+    public void passwordResetFailed(String message) {
+
+    }
 }

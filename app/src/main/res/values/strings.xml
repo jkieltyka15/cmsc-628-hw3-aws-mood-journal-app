@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">Mood Journal</string>
+    <string name="cognito_client_id">5t91lvlgb3hpr7k5qtjhqbvdrv</string>
+    <string name="cognito_user_pool_id">us-east-1_cAv7eF3jD</string>
     <string name="unknown_value">unknown</string>
     <string name="button_toolbar_menu_description">Navigation Menu</string>
     <string name="toolbar_menu_entry">New Entry</string>
