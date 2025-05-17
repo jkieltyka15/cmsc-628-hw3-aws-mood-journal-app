@@ -18,8 +18,17 @@
     <string name="password_reset_text">Reset Password</string>
     <string name="button_signup_text">Create Account</string>
     <string name="signup_text">Sign Up</string>
-    <string name="signup_invalid_email">Invalid email</string>
-    <string name="signup_no_password">Password is required</string>
-    <string name="signup_password_mismatch">Passwords do not match</string>
+    <string name="confirm_signup_check_email">Check email for verification code</string>
+    <string name="confirm_signup_code_hint">verification code</string>
+    <string name="confirm_signup_code_accessibility">verification code</string>
+    <string name="button_confirm_signup_verify_text">Verify</string>
+    <string name="confirm_signup_back_text">Back</string>
+    <string name="cognito_signed_in">Signed In</string>
     <string name="cognito_signed_out">Signed Out</string>
+    <string name="cognito_account_created">Account Created</string>
+    <string name="cognito_account_verified">Account Verified</string>
+    <string name="invalid_email_error">Invalid email</string>
+    <string name="no_password_error">Password is required</string>
+    <string name="password_mismatch_error">Passwords do not match</string>
+    <string name="no_code_error">Verification code is required</string>
 </resources>

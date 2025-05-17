@@ -65,7 +65,10 @@
     <TextView
         android:id="@+id/textView_signup_error"
         android:layout_width="match_parent"
-        android:layout_height="36sp"
+        android:layout_height="wrap_content"
+        android:minHeight="36sp"
+        android:maxLines="999"
+        android:ellipsize="none"
         android:textAlignment="center"
         android:textColor="@color/login_error_text" />
 
@@ -95,6 +98,7 @@
         android:focusable="true"
         android:text="@string/login_text"
         android:textAlignment="center"
-        android:textColor="@color/login_text" />
+        android:textColor="@color/login_text"
+        tools:ignore="TouchTargetSizeCheck" />
 
 </LinearLayout>

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".LoginFragment">
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="125sp" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/confirm_signup_check_email"
+        android:textAlignment="center"
+        android:textSize="20sp" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="125sp" />
+
+    <EditText
+        android:id="@+id/editText_confirm_signup_code"
+        android:layout_width="320dp"
+        android:layout_height="48dp"
+        android:layout_gravity="center_horizontal"
+        android:autofillHints="@string/confirm_signup_code_hint"
+        android:ems="10"
+        android:hint="@string/confirm_signup_code_accessibility"
+        android:imeActionLabel="@string/confirm_signup_code_accessibility"
+        android:inputType="textEmailAddress"
+        android:maxWidth="320dp"
+        android:textColor="@color/confirm_signup_code_text"
+        android:textColorHint="@color/confirm_signup_code_hint" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="12sp" />
+
+    <TextView
+        android:id="@+id/textView_confirm_signup_error"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="36sp"
+        android:maxLines="999"
+        android:ellipsize="none"
+        android:textAlignment="center"
+        android:textColor="@color/confirm_signup_error_text" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="12sp" />
+
+    <Button
+        android:id="@+id/button_confirm_signup_verify"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:backgroundTint="@color/button_confirm_signup_verify"
+        android:maxWidth="350dp"
+        android:text="@string/button_confirm_signup_verify_text"
+        android:textColor="@color/button_confirm_signup_verify_text" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="36sp" />
+
+    <TextView
+        android:id="@+id/textView_confirm_signup_back"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:focusable="true"
+        android:text="@string/confirm_signup_back_text"
+        android:textAlignment="center"
+        android:textColor="@color/confirm_signup_back_text"
+        tools:ignore="TouchTargetSizeCheck" />
+
+</LinearLayout>

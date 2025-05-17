@@ -17,9 +17,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private final LoginFragment loginFragment = new LoginFragment();
     private final SignupFragment signupFragment = new SignupFragment();
+    private final ConfirmSignupFragment confirmSignupFragment = new ConfirmSignupFragment();
     private final JournalFragment journalFragment = new JournalFragment();
 
     private CognitoHelper cognitoHelper;    // manages cognito session and functions
+    private String currentUsername = "";    // username of current cognito user
 
 
     private class ChangeFragmentWork implements Runnable {
@@ -62,7 +64,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (!signupFragment.isEmailValid()) {
 
             // set error text in signup fragment
-            String errorText = getString(R.string.signup_invalid_email);
+            String errorText = getString(R.string.invalid_email_error);
             signupFragment.setErrorText(errorText);
             return;
         }
@@ -71,7 +73,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (signupFragment.getPassword().isEmpty()) {
 
             // set error text in signup fragment
-            String errorText = getString(R.string.signup_no_password);
+            String errorText = getString(R.string.no_password_error);
             signupFragment.setErrorText(errorText);
             return;
         }
@@ -80,7 +82,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (!signupFragment.isPasswordConfirmed()) {
 
             // set error text in signup fragment
-            String errorText = getString(R.string.signup_password_mismatch);
+            String errorText = getString(R.string.password_mismatch_error);
             signupFragment.setErrorText(errorText);
             return;
         }
@@ -92,6 +94,60 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         // attempt to initialize cognito user sign up
         cognitoHelper.signUp(username, password, email);
+    }
+
+
+    /**
+     * Perform actions to attempt to confirm sign up for a Cognito user
+     */
+    private void cognitoConfirmSignUp() {
+
+        // check that verification code is present
+        if (confirmSignupFragment.getCode().isEmpty()) {
+
+            // set error text in confirm fragment
+            String errorText = getString(R.string.no_code_error);
+            confirmSignupFragment.setErrorText(errorText);
+            return;
+        }
+
+        // get verification credentials
+        String code = confirmSignupFragment.getCode();
+
+        // attempt to confirm Cognito user sign up
+        cognitoHelper.ConfirmSignUp(currentUsername, code);
+    }
+
+
+    /**
+     * Perform actions to attempt to login a Cognito user
+     */
+    private void cognitoLogin() {
+
+        // check that email is valid
+        if (!loginFragment.isEmailValid()) {
+
+            // set error text in signup fragment
+            String errorText = getString(R.string.invalid_email_error);
+            loginFragment.setErrorText(errorText);
+            return;
+        }
+
+        // check that password is present
+        if (loginFragment.getPassword().isEmpty()) {
+
+            // set error text in signup fragment
+            String errorText = getString(R.string.no_password_error);
+            loginFragment.setErrorText(errorText);
+            return;
+        }
+
+        // get user credentials
+        String username = loginFragment.getEmail();
+        String password = loginFragment.getPassword();
+
+        // attempt to sign in Cognito user
+        cognitoHelper.signIn(username, password);
     }
 
 
@@ -132,8 +188,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         // login button clicked in login fragment
         if (R.id.button_login == elementId) {
-            // @todo Implement logging into AWS
-            handler.post(new ChangeFragmentWork(journalFragment));
+            cognitoLogin();
         }
 
         // reset password text clicked in login fragment
@@ -154,6 +209,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // login text clicked in signup fragment
         else if (R.id.textView_login == elementId) {
             handler.post(new ChangeFragmentWork(loginFragment));
+        }
+
+        // verify button clicked in confirm signup fragment
+        else if (R.id.button_confirm_signup_verify == elementId) {
+            cognitoConfirmSignUp();
+        }
+
+        // back text clicked in confirm signup fragment
+        else if (R.id.textView_confirm_signup_back == elementId) {
+
+            // clear current user session
+            currentUsername = "";
+            cognitoHelper.signOut();
+
+            // navigate to sign up fragment
+            handler.post(new ChangeFragmentWork(signupFragment));
         }
 
         // login text clicked in signup fragment
@@ -177,6 +248,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
      */
     public void signInSuccess() {
 
+        // save current username
+        currentUsername = loginFragment.getEmail();
+
+        // notify user is signed in
+        final String signInMsg = getString(R.string.cognito_signed_in);
+        Toast.makeText(this, signInMsg, Toast.LENGTH_SHORT).show();
+
+        // navigate to journal fragment
+        handler.post(new ChangeFragmentWork(journalFragment));
     }
 
 
@@ -186,7 +266,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
      * @param message: Reason why sign in failed
      */
     public void signInFailed(String message) {
-
+        currentUsername = "";
+        loginFragment.setErrorText(message);
     }
 
 
@@ -195,6 +276,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
      */
     public void signUpSuccess() {
 
+        // save current username
+        currentUsername = signupFragment.getEmail();
+
+        // notify user account was created
+        final String accountCreatedMsg = getString(R.string.cognito_account_created);
+        Toast.makeText(this, accountCreatedMsg, Toast.LENGTH_SHORT).show();
+
+        // navigate to confirm sign up fragment
+        handler.post(new ChangeFragmentWork(confirmSignupFragment));
     }
 
 
@@ -204,6 +294,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
      * @param message: Reason why sign up failed
      */
     public void signUpFailed(String message) {
+        currentUsername = "";
         signupFragment.setErrorText(message);
     }
 
@@ -213,6 +304,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
      */
     public void confirmSignUpSuccess() {
 
+        // notify user account is verified
+        final String accountVerifiedMsg = getString(R.string.cognito_account_verified);
+        Toast.makeText(this, accountVerifiedMsg, Toast.LENGTH_SHORT).show();
+
+        // navigate to login fragment
+        handler.post(new ChangeFragmentWork(loginFragment));
     }
 
 
@@ -222,7 +319,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
      * @param message: Reason why confirming sign up failed
      */
     public void confirmSignUpFailed(String message) {
-
+        confirmSignupFragment.setErrorText(message);
     }
 
 

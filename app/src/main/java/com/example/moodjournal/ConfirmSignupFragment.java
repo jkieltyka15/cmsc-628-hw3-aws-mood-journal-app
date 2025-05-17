@@ -2,12 +2,7 @@ package com.example.moodjournal;
 
 import android.content.Context;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-
 import android.os.Handler;
-import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,15 +10,17 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 
-public class LoginFragment extends Fragment implements View.OnClickListener {
+
+public class ConfirmSignupFragment extends Fragment implements View.OnClickListener {
 
     private final Handler handler = new Handler();  // handles UI changes safely
 
     private View.OnClickListener callback;  // callback to view when ui element is clicked
 
-    private EditText userEmailEditText;
-    private EditText userPasswordEditText;
+    private EditText codeEditText;
     private TextView errorTextView;
 
 
@@ -89,24 +86,21 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
                              Bundle savedInstanceState) {
 
         // inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_login, container, false);
+        View view = inflater.inflate(R.layout.fragment_confirm_signup, container, false);
 
         // initialize error TextView
-        errorTextView = view.findViewById(R.id.textView_login_error);
+        errorTextView = view.findViewById(R.id.textView_confirm_signup_error);
 
         // initialize edit text elements
-        userEmailEditText = view.findViewById(R.id.editText_login_email);
-        userPasswordEditText = view.findViewById(R.id.editText_login_password);
+        codeEditText = view.findViewById(R.id.editText_confirm_signup_code);
 
         // initialize clickable elements
-        Button loginButton = view.findViewById(R.id.button_login);
-        TextView resetPasswordTextView = view.findViewById(R.id.textView_reset_password);
-        TextView signupTextView = view.findViewById(R.id.textView_signup);
+        Button verifyButton = view.findViewById(R.id.button_confirm_signup_verify);
+        TextView backTextView = view.findViewById(R.id.textView_confirm_signup_back);
 
         // setup clickable element listeners
-        loginButton.setOnClickListener(this);
-        resetPasswordTextView.setOnClickListener(this);
-        signupTextView.setOnClickListener(this);
+        verifyButton.setOnClickListener(this);
+        backTextView.setOnClickListener(this);
 
         return view;
     }
@@ -126,8 +120,8 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
         // perform callback
         if (null != callback) {
 
-            // login button clicked
-            if (R.id.button_login == elementId) {
+            // verify button clicked
+            if (R.id.button_confirm_signup_verify == elementId) {
 
                 // clear error text
                 this.setErrorText("");
@@ -136,18 +130,8 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
                 callback.onClick(view);
             }
 
-            // reset password text clicked
-            else if (R.id.textView_reset_password == elementId) {
-
-                // clear error text
-                this.setErrorText("");
-
-                // perform callback
-                callback.onClick(view);
-            }
-
-            // signup text clicked
-            else if (R.id.textView_signup == elementId) {
+            // back text clicked
+            else if (R.id.textView_confirm_signup_back == elementId) {
 
                 // clear error text
                 this.setErrorText("");
@@ -160,34 +144,12 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
 
 
     /**
-     * Checks if the email in the EditText is valid
+     * Gets value held in verification code EditText as a String
      *
-     * @return True if email is valid. Otherwise false
+     * @return Value of verification code EditText
      */
-    public boolean isEmailValid() {
-
-        String email = userEmailEditText.getText().toString();
-        return Patterns.EMAIL_ADDRESS.matcher(email).matches();
-    }
-
-
-    /**
-     * Gets value held in email EditText as a String
-     *
-     * @return Value of email EditText
-     */
-    public String getEmail() {
-        return userEmailEditText.getText().toString();
-    }
-
-
-    /**
-     * Gets value held in password EditText as a String
-     *
-     * @return Value of password EditText
-     */
-    public String getPassword() {
-        return userPasswordEditText.getText().toString();
+    public String getCode() {
+        return codeEditText.getText().toString();
     }
 
 
@@ -197,6 +159,6 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
      * @param text: Text to display in error TextView
      */
     public void setErrorText(String text) {
-        handler.post(new LoginFragment.SetErrorText(text));
+        handler.post(new ConfirmSignupFragment.SetErrorText(text));
     }
 }
