@@ -94,6 +94,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             handler.post(new ChangeFragmentWork(journalFragment));
         }
 
+        // reset password text clicked in login fragment
+        else if (R.id.textView_reset_password == elementId) {
+            // @todo implement password reset with AWS
+        }
+
         // signup text clicked in login fragment
         else if (R.id.textView_signup == elementId) {
             handler.post(new ChangeFragmentWork(signupFragment));

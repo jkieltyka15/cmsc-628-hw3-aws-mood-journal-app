@@ -15,6 +15,7 @@
     <string name="signup_password_confirm_accessibility">confirm password</string>
     <string name="button_login_text">Login</string>
     <string name="login_text">Login</string>
+    <string name="password_reset_text">Reset Password</string>
     <string name="button_signup_text">Create Account</string>
     <string name="signup_text">Sign Up</string>
     <string name="cognito_signed_out">Signed Out</string>

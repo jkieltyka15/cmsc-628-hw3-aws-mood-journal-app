@@ -71,10 +71,25 @@
         android:layout_height="36sp" />
 
     <TextView
+        android:id="@+id/textView_reset_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:focusable="true"
+        android:text="@string/password_reset_text"
+        android:textAlignment="center"
+        android:textColor="@color/signup_text" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="36sp" />
+
+    <TextView
         android:id="@+id/textView_signup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:clickable="true"
+        android:focusable="true"
         android:text="@string/signup_text"
         android:textAlignment="center"
         android:textColor="@color/signup_text" />

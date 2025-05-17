@@ -59,10 +59,12 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
 
         // initialize clickable elements
         Button loginButton = view.findViewById(R.id.button_login);
+        TextView resetPasswordTextView = view.findViewById(R.id.textView_reset_password);
         TextView signupTextView = view.findViewById(R.id.textView_signup);
 
         // setup clickable element listeners
         loginButton.setOnClickListener(this);
+        resetPasswordTextView.setOnClickListener(this);
         signupTextView.setOnClickListener(this);
 
         return view;
@@ -85,6 +87,11 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
 
             // login button clicked
             if (R.id.button_login == elementId) {
+                callback.onClick(view);
+            }
+
+            // reset password text clicked
+            else if (R.id.textView_reset_password == elementId) {
                 callback.onClick(view);
             }
 
