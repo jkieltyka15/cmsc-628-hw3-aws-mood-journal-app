@@ -7,7 +7,6 @@ import com.example.moodjournal.MainActivity;
 
 public class CognitoConfirmSignUpHandler implements GenericHandler {
 
-    private final Context context;
     private final MainActivity activity;
 
 
@@ -17,8 +16,6 @@ public class CognitoConfirmSignUpHandler implements GenericHandler {
      * @param context: Context of MainActivity
      */
     public CognitoConfirmSignUpHandler(Context context) {
-
-        this.context = context;
         activity = (MainActivity) context;
     }
 

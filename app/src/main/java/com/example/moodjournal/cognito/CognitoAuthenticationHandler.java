@@ -17,7 +17,6 @@ public class CognitoAuthenticationHandler implements AuthenticationHandler {
 
     private final String username;
     private final String password;
-    private final Context context;
     private final MainActivity activity;
 
 
@@ -32,7 +31,6 @@ public class CognitoAuthenticationHandler implements AuthenticationHandler {
 
         this.username = username;
         this.password = password;
-        this.context = context;
         activity = (MainActivity) context;
     }
 

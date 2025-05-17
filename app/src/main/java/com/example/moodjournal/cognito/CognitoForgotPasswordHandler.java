@@ -8,7 +8,6 @@ import com.example.moodjournal.MainActivity;
 
 public class CognitoForgotPasswordHandler implements ForgotPasswordHandler {
 
-    private final Context context;
     private final MainActivity activity;
     private ForgotPasswordContinuation passwordContinuation;
 
@@ -19,8 +18,6 @@ public class CognitoForgotPasswordHandler implements ForgotPasswordHandler {
      * @param context: Context of MainActivity
      */
     public CognitoForgotPasswordHandler(Context context) {
-
-        this.context = context;
         activity = (MainActivity) context;
     }
 

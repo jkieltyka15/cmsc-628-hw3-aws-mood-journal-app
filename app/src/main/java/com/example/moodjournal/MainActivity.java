@@ -3,9 +3,13 @@ package com.example.moodjournal;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+
+import com.amazonaws.regions.Regions;
+import com.example.moodjournal.cognito.CognitoHelper;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -14,6 +18,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private final LoginFragment loginFragment = new LoginFragment();
     private final SignupFragment signupFragment = new SignupFragment();
     private final JournalFragment journalFragment = new JournalFragment();
+
+    private CognitoHelper cognitoHelper;    // manages cognito session and functions
 
 
     private class ChangeFragmentWork implements Runnable {
@@ -59,6 +65,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // setup cognito helper
+        cognitoHelper = new CognitoHelper(this, Regions.US_EAST_1);
+
         // display login fragment
         if (null == savedInstanceState) {
             getSupportFragmentManager().beginTransaction()
@@ -103,7 +112,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         // login text clicked in signup fragment
         else if (R.id.toolbar_menu_sign_out == elementId) {
-            // @todo Implement signing out of AWS
+
+            // sign out current user
+            cognitoHelper.signOut();
+
+            // notify user is signed out
+            final String signOutMsg = getString(R.string.cognito_signed_out);
+            Toast.makeText(this, signOutMsg, Toast.LENGTH_SHORT).show();
+
+            // navigate to login
             handler.post(new ChangeFragmentWork(loginFragment));
         }
     }

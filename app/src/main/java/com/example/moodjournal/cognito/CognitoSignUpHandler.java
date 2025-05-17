@@ -9,7 +9,6 @@ import com.example.moodjournal.MainActivity;
 
 public class CognitoSignUpHandler implements SignUpHandler {
 
-    private final Context context;
     private final MainActivity activity;
 
 
@@ -19,8 +18,6 @@ public class CognitoSignUpHandler implements SignUpHandler {
      * @param context: Context of MainActivity
      */
     public CognitoSignUpHandler(Context context) {
-
-        this.context = context;
         activity = (MainActivity) context;
     }
 
