@@ -54,6 +54,48 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
     /**
+     * Perform actions to attempt to sign up a Cognito user
+     */
+    private void cognitoSignUp() {
+
+        // check that email is valid
+        if (!signupFragment.isEmailValid()) {
+
+            // set error text in signup fragment
+            String errorText = getString(R.string.signup_invalid_email);
+            signupFragment.setErrorText(errorText);
+            return;
+        }
+
+        // check that password is present
+        if (signupFragment.getPassword().isEmpty()) {
+
+            // set error text in signup fragment
+            String errorText = getString(R.string.signup_no_password);
+            signupFragment.setErrorText(errorText);
+            return;
+        }
+
+        // check that passwords match
+        if (!signupFragment.isPasswordConfirmed()) {
+
+            // set error text in signup fragment
+            String errorText = getString(R.string.signup_password_mismatch);
+            signupFragment.setErrorText(errorText);
+            return;
+        }
+
+        // get user credentials
+        String username = signupFragment.getEmail();
+        String email = signupFragment.getEmail();
+        String password = signupFragment.getPassword();
+
+        // attempt to initialize cognito user sign up
+        cognitoHelper.signUp(username, password, email);
+    }
+
+
+    /**
      * Called when Activity is created
      *
      * @param savedInstanceState: Most recent data in the save instance state or null
@@ -106,8 +148,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         // signup button clicked in signup fragment
         else if (R.id.button_signup == elementId) {
-            // @todo Implement signing up with AWS
-            handler.post(new ChangeFragmentWork(loginFragment));
+            cognitoSignUp();
         }
 
         // login text clicked in signup fragment
@@ -163,7 +204,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
      * @param message: Reason why sign up failed
      */
     public void signUpFailed(String message) {
-
+        signupFragment.setErrorText(message);
     }
 
 

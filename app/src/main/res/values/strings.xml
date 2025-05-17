@@ -18,5 +18,8 @@
     <string name="password_reset_text">Reset Password</string>
     <string name="button_signup_text">Create Account</string>
     <string name="signup_text">Sign Up</string>
+    <string name="signup_invalid_email">Invalid email</string>
+    <string name="signup_no_password">Password is required</string>
+    <string name="signup_password_mismatch">Passwords do not match</string>
     <string name="cognito_signed_out">Signed Out</string>
 </resources>
