@@ -1,8 +1,148 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".EntryFragment" >
+    android:orientation="vertical"
+    tools:context=".EntryFragment">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <Space
+        android:layout_width="wrap_content"
+        android:layout_height="36sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/textView_date_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="25dp"
+            android:paddingEnd="6dp"
+            android:text="@string/entry_date_label"
+            android:textAlignment="viewStart"
+            android:textColor="@color/dark_text"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textView_entry_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/unknown_value"
+            android:textAlignment="viewStart"
+            android:textColor="@color/dark_text"
+            android:textSize="24sp" />
+
+    </LinearLayout>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="36sp" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/textView_entry_mood_label"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingStart="25dp"
+            android:paddingEnd="6dp"
+            android:text="@string/entry_mood_label"
+            android:textAlignment="viewStart"
+            android:textColor="@color/dark_text"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <Spinner
+            android:id="@+id/spinner_entry_mood"
+            android:layout_width="148dp"
+            android:layout_height="match_parent"
+            android:spinnerMode="dropdown"
+            tools:ignore="TouchTargetSizeCheck" />
+
+    </LinearLayout>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="36sp" />
+
+    <TextView
+        android:id="@+id/textView_entry_notes_label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="25dp"
+        android:paddingEnd="0dp"
+        android:text="@string/entry_notes_label"
+        android:textAlignment="viewStart"
+        android:textColor="@color/dark_text"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="12sp" />
+
+    <FrameLayout
+        android:id="@+id/frameLayout_entry_notes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="25dp"
+        android:paddingEnd="25dp">
+
+        <EditText
+            android:id="@+id/multilineEditText_entry_notes"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_gravity="center_horizontal"
+            android:autofillHints="@string/entry_notes_accessibility"
+            android:background="@android:drawable/edit_text"
+            android:gravity="start"
+            android:hint="@string/entry_notes_hint"
+            android:inputType="textMultiLine"
+            android:maxWidth="488dp"
+            android:maxLines="100"
+            android:overScrollMode="always"
+            android:padding="6dp"
+            android:scrollbars="vertical"
+            android:textAlignment="viewStart"
+            android:textColor="@color/dark_text"
+            android:textColorHint="@color/hint_text"
+            android:textSize="16sp"
+            tools:ignore="VisualLintTextFieldSize" />
+    </FrameLayout>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="36sp" />
+
+    <Button
+        android:id="@+id/button_entry_submit"
+        android:layout_width="240dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:backgroundTint="@color/button_background"
+        android:text="@string/button_entry_submit_text"
+        android:textColor="@color/button_text" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="36sp" />
+
+    <TextView
+        android:id="@+id/textView_entry_error"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:ellipsize="none"
+        android:maxLines="999"
+        android:minHeight="36sp"
+        android:textAlignment="center"
+        android:textColor="@color/error_text" />
+
+</LinearLayout>
