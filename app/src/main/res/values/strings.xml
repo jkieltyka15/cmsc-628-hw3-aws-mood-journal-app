@@ -51,6 +51,14 @@
     <string name="entry_notes_accessibility">Optional</string>
     <string name="button_entry_submit_text">Submit</string>
 
+    <string-array name="entry_moods">
+        <item>Happy</item>
+        <item>Sad</item>
+        <item>Angry</item>
+        <item>Anxious</item>
+        <item>Neutral</item>
+    </string-array>
+
     <string name="cognito_signed_in">Signed In</string>
     <string name="cognito_signed_out">Signed Out</string>
     <string name="cognito_account_created">Account Created</string>

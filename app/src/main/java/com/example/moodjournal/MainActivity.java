@@ -365,6 +365,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             // navigate to login
             handler.post(new ChangeFragmentWork(loginFragment));
         }
+
+        // submit button clicked in entry fragment
+        else if (R.id.button_entry_submit == elementId) {
+
+        }
     }
 
 

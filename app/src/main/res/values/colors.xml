@@ -10,4 +10,6 @@
     <color name="hint_text">#6F7378</color>             <!-- Dark Gray -->
     <color name="button_background">#161D63</color>     <!-- Dark Royal Blue -->
     <color name="button_text">#FFFFFFFF</color>         <!-- White -->
+    <color name="spinner_background">#FFFFFFFF</color>  <!-- White -->
+    <color name="spinner_text">#FF000000</color>        <!-- Black -->
 </resources>

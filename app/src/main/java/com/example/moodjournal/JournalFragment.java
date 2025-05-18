@@ -174,15 +174,12 @@ public class JournalFragment extends Fragment implements View.OnClickListener {
                 }
 
                 // sign out
-                if (id.toolbar_menu_sign_out == itemId) {
+                if (id.toolbar_menu_sign_out == itemId && null != callback) {
 
-                    if (null != callback) {
-
-                        // simulate a fake View with the correct ID
-                        View fakeView = new View(getContext());
-                        fakeView.setId(R.id.toolbar_menu_sign_out);
-                        callback.onClick(fakeView);
-                    }
+                    // simulate a fake View with the correct ID
+                    View fakeView = new View(getContext());
+                    fakeView.setId(R.id.toolbar_menu_sign_out);
+                    callback.onClick(fakeView);
 
                     return true;
                 }
@@ -193,6 +190,15 @@ public class JournalFragment extends Fragment implements View.OnClickListener {
 
             // show popup menu
             popup.show();
+        }
+
+        // submit button clicked in entry fragment
+        else if (R.id.button_entry_submit == elementId && null != callback) {
+
+            // simulate a fake View with the correct ID
+            View fakeView = new View(getContext());
+            fakeView.setId(R.id.button_entry_submit);
+            callback.onClick(fakeView);
         }
     }
 }
