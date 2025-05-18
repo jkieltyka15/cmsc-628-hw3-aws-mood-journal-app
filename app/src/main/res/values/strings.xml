@@ -2,27 +2,37 @@
     <string name="app_name">Mood Journal</string>
     <string name="cognito_client_id">5t91lvlgb3hpr7k5qtjhqbvdrv</string>
     <string name="cognito_user_pool_id">us-east-1_cAv7eF3jD</string>
+
     <string name="unknown_value">unknown</string>
+
     <string name="button_toolbar_menu_description">Navigation Menu</string>
     <string name="toolbar_menu_entry">New Entry</string>
     <string name="toolbar_menu_history">History</string>
     <string name="toolbar_menu_sign_out">Sign Out</string>
+
     <string name="login_email_hint">email</string>
     <string name="login_email_accessibility">email</string>
     <string name="login_password_hint">password</string>
     <string name="login_password_accessibility">password</string>
-    <string name="signup_password_confirm_hint">confirm password</string>
-    <string name="signup_password_confirm_accessibility">confirm password</string>
     <string name="button_login_text">Login</string>
     <string name="login_text">Login</string>
     <string name="password_reset_text">Reset Password</string>
     <string name="button_signup_text">Create Account</string>
+
+    <string name="signup_password_confirm_hint">confirm password</string>
+    <string name="signup_password_confirm_accessibility">confirm password</string>
     <string name="signup_text">Sign Up</string>
+
     <string name="confirm_signup_check_email">Check email for verification code</string>
     <string name="confirm_signup_code_hint">verification code</string>
     <string name="confirm_signup_code_accessibility">verification code</string>
     <string name="button_confirm_signup_verify_text">Verify</string>
     <string name="confirm_signup_back_text">Back</string>
+
+    <string name="password_reset_email_hint">email</string>
+    <string name="password_reset_email_accessibility">email</string>
+    <string name="button_password_reset_request_password_reset_text">Request Password Reset</string>
+    <string name="password_reset_login_text">Login</string>
 
     <string name="confirm_password_reset_check_email">Check email for verification code</string>
     <string name="confirm_password_reset_code_hint">verification code</string>
@@ -38,6 +48,8 @@
     <string name="cognito_signed_out">Signed Out</string>
     <string name="cognito_account_created">Account Created</string>
     <string name="cognito_account_verified">Account Verified</string>
+    <string name="cognito_password_reset">Password Reset</string>
+    <string name="cognito_password_reset_request_sent">Password Reset Request Sent</string>
     <string name="invalid_email_error">Invalid email</string>
     <string name="no_password_error">Password is required</string>
     <string name="password_mismatch_error">Passwords do not match</string>

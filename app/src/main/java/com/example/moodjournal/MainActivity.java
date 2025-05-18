@@ -16,7 +16,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private final Handler handler = new Handler();  // handles UI changes safely
 
     private final LoginFragment loginFragment = new LoginFragment();
-    private final ConfirmPasswordResetFragment passwordResetFragment = new ConfirmPasswordResetFragment();
+    private final PasswordResetFragment passwordResetFragment = new PasswordResetFragment();
+    private final ConfirmPasswordResetFragment confirmPasswordResetFragment = new ConfirmPasswordResetFragment();
     private final SignupFragment signupFragment = new SignupFragment();
     private final ConfirmSignupFragment confirmSignupFragment = new ConfirmSignupFragment();
     private final JournalFragment journalFragment = new JournalFragment();
@@ -95,6 +96,69 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         // attempt to initialize cognito user sign up
         cognitoHelper.signUp(username, password, email);
+    }
+
+
+    /**
+     * Perform actions to attempt initialize a Cognito user password reset
+     */
+    private void cognitoResetPassword() {
+
+        // check that email is valid
+        if (!passwordResetFragment.isEmailValid()) {
+
+            // set error text in signup fragment
+            String errorText = getString(R.string.invalid_email_error);
+            passwordResetFragment.setErrorText(errorText);
+            return;
+        }
+
+        // get username
+        String username = passwordResetFragment.getEmail();
+
+        // attempt to initialize cognito user password reset
+        cognitoHelper.initiatePasswordReset(username);
+    }
+
+
+    /**
+     * Perform actions to reset a Cognito user password
+     */
+    private void cognitoConfirmResetPassword() {
+
+        // check that verification code is present
+        if (confirmPasswordResetFragment.getCode().isEmpty()) {
+
+            // set error text in confirm fragment
+            String errorText = getString(R.string.no_code_error);
+            confirmPasswordResetFragment.setErrorText(errorText);
+            return;
+        }
+
+        // check that password is present
+        if (confirmPasswordResetFragment.getPassword().isEmpty()) {
+
+            // set error text in signup fragment
+            String errorText = getString(R.string.no_password_error);
+            confirmPasswordResetFragment.setErrorText(errorText);
+            return;
+        }
+
+        // check that passwords match
+        if (!confirmPasswordResetFragment.isPasswordConfirmed()) {
+
+            // set error text in signup fragment
+            String errorText = getString(R.string.password_mismatch_error);
+            confirmPasswordResetFragment.setErrorText(errorText);
+            return;
+        }
+
+        // get verification credentials
+        String code = confirmPasswordResetFragment.getCode();
+        String password = confirmPasswordResetFragment.getPassword();
+
+        // attempt to reset user password
+        cognitoHelper.confirmPasswordReset(code, password);
     }
 
 
@@ -194,7 +258,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         // reset password text clicked in login fragment
         else if (R.id.textView_reset_password == elementId) {
-            // @todo implement password reset with AWS
+
+            // clear all text fields
+            loginFragment.clearText();
+
+            // navigate to signup fragment
+            handler.post(new ChangeFragmentWork(passwordResetFragment));
         }
 
         // signup text clicked in login fragment
@@ -205,6 +274,48 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             // navigate to signup fragment
             handler.post(new ChangeFragmentWork(signupFragment));
+        }
+
+        // request password reset button clicked in reset password fragment
+        else if (R.id.button_password_reset_request_password_reset == elementId) {
+
+            // request password reset
+            cognitoResetPassword();
+
+            // notify user request was sent
+            final String passwordResetMsg = getString(R.string.cognito_password_reset_request_sent);
+            Toast.makeText(this, passwordResetMsg, Toast.LENGTH_SHORT).show();
+
+            // clear all text fields
+            passwordResetFragment.clearText();
+
+            // navigate to confirm password reset fragment
+            handler.post(new ChangeFragmentWork(confirmPasswordResetFragment));
+        }
+
+        // back text clicked in reset password fragment
+        else if (R.id.textView_password_reset_login == elementId) {
+
+            // clear all text fields
+            passwordResetFragment.clearText();
+
+            // navigate to login fragment
+            handler.post(new ChangeFragmentWork(loginFragment));
+        }
+
+        // reset password button clicked in confirm password reset fragment
+        if (R.id.button_confirm_password_reset_reset_password == elementId) {
+            cognitoConfirmResetPassword();
+        }
+
+        // back text clicked in confirm password reset fragment
+        else if (R.id.textView_confirm_password_reset_back == elementId) {
+
+            // clear all text fields
+            confirmPasswordResetFragment.clearText();
+
+            // navigate to login fragment
+            handler.post(new ChangeFragmentWork(passwordResetFragment));
         }
 
         // signup button clicked in signup fragment
@@ -351,6 +462,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
      */
     public void passwordResetSuccess() {
 
+        // notify user password was reset
+        final String passwordResetMsg = getString(R.string.cognito_password_reset);
+        Toast.makeText(this, passwordResetMsg, Toast.LENGTH_SHORT).show();
+
+        // clear all text fields
+        confirmPasswordResetFragment.clearText();
+
+        // navigate to login fragment
+        handler.post(new ChangeFragmentWork(loginFragment));
     }
 
 
@@ -360,6 +480,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
      * @param message: Reason why password reset failed
      */
     public void passwordResetFailed(String message) {
-
+        confirmPasswordResetFragment.setErrorText(message);
     }
 }

@@ -3,6 +3,7 @@ package com.example.moodjournal;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,15 +15,13 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 
-public class ConfirmPasswordResetFragment extends Fragment implements View.OnClickListener {
+public class PasswordResetFragment extends Fragment implements View.OnClickListener {
 
     private final Handler handler = new Handler();  // handles UI changes safely
 
     private View.OnClickListener callback;  // callback to view when ui element is clicked
 
-    private EditText codeEditText;
-    private EditText userPasswordEditText;
-    private EditText userPasswordConfirmEditText;
+    private EditText emailEditText;
     private TextView errorTextView;
 
 
@@ -88,22 +87,20 @@ public class ConfirmPasswordResetFragment extends Fragment implements View.OnCli
                              Bundle savedInstanceState) {
 
         // inflate the layout for this fragment
-        View view =  inflater.inflate(R.layout.fragment_confirm_password_reset, container, false);
+        View view = inflater.inflate(R.layout.fragment_password_reset, container, false);
 
         // initialize error TextView
-        errorTextView = view.findViewById(R.id.textView_confirm_password_reset_error);
+        errorTextView = view.findViewById(R.id.textView_password_reset_error);
 
         // initialize edit text elements
-        codeEditText = view.findViewById(R.id.editText_confirm_password_reset_code);
-        userPasswordEditText = view.findViewById(R.id.editText_confirm_password_reset_password);
-        userPasswordConfirmEditText = view.findViewById(R.id.editText_confirm_password_reset_password_confirm);
+        emailEditText = view.findViewById(R.id.editText_password_reset_email);
 
         // initialize clickable elements
-        Button signupButton = view.findViewById(R.id.button_confirm_password_reset_reset_password);
-        TextView loginTextView = view.findViewById(R.id.textView_confirm_password_reset_back);
+        Button requestButton = view.findViewById(R.id.button_password_reset_request_password_reset);
+        TextView loginTextView = view.findViewById(R.id.textView_password_reset_login);
 
         // setup clickable element listeners
-        signupButton.setOnClickListener(this);
+        requestButton.setOnClickListener(this);
         loginTextView.setOnClickListener(this);
 
         return view;
@@ -124,8 +121,8 @@ public class ConfirmPasswordResetFragment extends Fragment implements View.OnCli
         // perform callback
         if (null != callback) {
 
-            // reset password button clicked
-            if (R.id.button_confirm_password_reset_reset_password == elementId) {
+            // request password reset button clicked
+            if (R.id.button_password_reset_request_password_reset == elementId) {
 
                 // clear error text
                 this.setErrorText("");
@@ -134,8 +131,8 @@ public class ConfirmPasswordResetFragment extends Fragment implements View.OnCli
                 callback.onClick(view);
             }
 
-            // back text clicked
-            else if (R.id.textView_confirm_password_reset_back == elementId) {
+            // login text clicked
+            else if (R.id.textView_password_reset_login == elementId) {
 
                 // clear error text
                 this.setErrorText("");
@@ -148,36 +145,24 @@ public class ConfirmPasswordResetFragment extends Fragment implements View.OnCli
 
 
     /**
-     * Checks if the password and confirm password EditTexts match
+     * Checks if the email in the EditText is valid
      *
-     * @return True if passwords match. Otherwise false
+     * @return True if email is valid. Otherwise false
      */
-    public boolean isPasswordConfirmed() {
+    public boolean isEmailValid() {
 
-        final String password = userPasswordEditText.getText().toString();
-        final String passwordConfirm = userPasswordConfirmEditText.getText().toString();
-
-        return password.equals(passwordConfirm);
+        String email = emailEditText.getText().toString();
+        return Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
 
 
     /**
-     * Gets value held in verification code EditText as a String
+     * Gets value held in email EditText as a String
      *
-     * @return Value of verification code EditText
+     * @return Value of email EditText
      */
-    public String getCode() {
-        return codeEditText.getText().toString();
-    }
-
-
-    /**
-     * Gets value held in password EditText as a String
-     *
-     * @return Value of password EditText
-     */
-    public String getPassword() {
-        return userPasswordEditText.getText().toString();
+    public String getEmail() {
+        return emailEditText.getText().toString();
     }
 
 
@@ -187,17 +172,14 @@ public class ConfirmPasswordResetFragment extends Fragment implements View.OnCli
      * @param text: Text to display in error TextView
      */
     public void setErrorText(String text) {
-        handler.post(new ConfirmPasswordResetFragment.SetErrorText(text));
+        handler.post(new PasswordResetFragment.SetErrorText(text));
     }
-
 
     /**
      * Clears all editable text
      */
     public void clearText() {
-        codeEditText.setText("");
-        userPasswordEditText.setText("");
-        userPasswordConfirmEditText.setText("");
+        emailEditText.setText("");
         setErrorText("");
     }
 }
