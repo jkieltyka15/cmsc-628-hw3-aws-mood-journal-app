@@ -16,6 +16,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private final Handler handler = new Handler();  // handles UI changes safely
 
     private final LoginFragment loginFragment = new LoginFragment();
+    private final ConfirmPasswordResetFragment passwordResetFragment = new ConfirmPasswordResetFragment();
     private final SignupFragment signupFragment = new SignupFragment();
     private final ConfirmSignupFragment confirmSignupFragment = new ConfirmSignupFragment();
     private final JournalFragment journalFragment = new JournalFragment();
@@ -198,6 +199,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         // signup text clicked in login fragment
         else if (R.id.textView_signup == elementId) {
+
+            // clear all text fields
+            loginFragment.clearText();
+
+            // navigate to signup fragment
             handler.post(new ChangeFragmentWork(signupFragment));
         }
 
@@ -208,6 +214,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         // login text clicked in signup fragment
         else if (R.id.textView_login == elementId) {
+
+            // clear all text fields
+            signupFragment.clearText();
+
+            // navigate to login fragment
             handler.post(new ChangeFragmentWork(loginFragment));
         }
 
@@ -222,6 +233,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             // clear current user session
             currentUsername = "";
             cognitoHelper.signOut();
+
+            // clear all text fields
+            confirmSignupFragment.clearText();
 
             // navigate to sign up fragment
             handler.post(new ChangeFragmentWork(signupFragment));
@@ -255,6 +269,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         final String signInMsg = getString(R.string.cognito_signed_in);
         Toast.makeText(this, signInMsg, Toast.LENGTH_SHORT).show();
 
+        // clear all text field
+        loginFragment.clearText();
+
         // navigate to journal fragment
         handler.post(new ChangeFragmentWork(journalFragment));
     }
@@ -283,6 +300,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         final String accountCreatedMsg = getString(R.string.cognito_account_created);
         Toast.makeText(this, accountCreatedMsg, Toast.LENGTH_SHORT).show();
 
+        // clear all text fields
+        signupFragment.clearText();
+
         // navigate to confirm sign up fragment
         handler.post(new ChangeFragmentWork(confirmSignupFragment));
     }
@@ -307,6 +327,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // notify user account is verified
         final String accountVerifiedMsg = getString(R.string.cognito_account_verified);
         Toast.makeText(this, accountVerifiedMsg, Toast.LENGTH_SHORT).show();
+
+        // clear all text fields
+        confirmSignupFragment.clearText();
 
         // navigate to login fragment
         handler.post(new ChangeFragmentWork(loginFragment));

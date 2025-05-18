@@ -161,4 +161,12 @@ public class ConfirmSignupFragment extends Fragment implements View.OnClickListe
     public void setErrorText(String text) {
         handler.post(new ConfirmSignupFragment.SetErrorText(text));
     }
+
+    /**
+     * Clears all editable text
+     */
+    public void clearText() {
+        codeEditText.setText("");
+        setErrorText("");
+    }
 }

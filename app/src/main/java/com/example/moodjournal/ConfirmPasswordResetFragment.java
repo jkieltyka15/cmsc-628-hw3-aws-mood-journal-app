@@ -3,7 +3,6 @@ package com.example.moodjournal;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,13 +14,13 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 
-public class SignupFragment extends Fragment implements View.OnClickListener {
+public class ConfirmPasswordResetFragment extends Fragment implements View.OnClickListener {
 
     private final Handler handler = new Handler();  // handles UI changes safely
 
     private View.OnClickListener callback;  // callback to view when ui element is clicked
 
-    private EditText userEmailEditText;
+    private EditText codeEditText;
     private EditText userPasswordEditText;
     private EditText userPasswordConfirmEditText;
     private TextView errorTextView;
@@ -89,19 +88,19 @@ public class SignupFragment extends Fragment implements View.OnClickListener {
                              Bundle savedInstanceState) {
 
         // inflate the layout for this fragment
-        View view =  inflater.inflate(R.layout.fragment_signup, container, false);
+        View view =  inflater.inflate(R.layout.fragment_confirm_password_reset, container, false);
 
         // initialize error TextView
-        errorTextView = view.findViewById(R.id.textView_signup_error);
+        errorTextView = view.findViewById(R.id.textView_confirm_password_reset_error);
 
         // initialize edit text elements
-        userEmailEditText = view.findViewById(R.id.editText_signup_email);
-        userPasswordEditText = view.findViewById(R.id.editText_signup_password);
-        userPasswordConfirmEditText = view.findViewById(R.id.editText_signup_password_confirm);
+        codeEditText = view.findViewById(R.id.editText_confirm_password_reset_code);
+        userPasswordEditText = view.findViewById(R.id.editText_confirm_password_reset_password);
+        userPasswordConfirmEditText = view.findViewById(R.id.editText_confirm_password_reset_password_confirm);
 
         // initialize clickable elements
-        Button signupButton = view.findViewById(R.id.button_signup);
-        TextView loginTextView = view.findViewById(R.id.textView_login);
+        Button signupButton = view.findViewById(R.id.button_confirm_password_reset_reset_password);
+        TextView loginTextView = view.findViewById(R.id.textView_confirm_password_reset_back);
 
         // setup clickable element listeners
         signupButton.setOnClickListener(this);
@@ -149,18 +148,6 @@ public class SignupFragment extends Fragment implements View.OnClickListener {
 
 
     /**
-     * Checks if the email in the EditText is valid
-     *
-     * @return True if email is valid. Otherwise false
-     */
-    public boolean isEmailValid() {
-
-        String email = userEmailEditText.getText().toString();
-        return Patterns.EMAIL_ADDRESS.matcher(email).matches();
-    }
-
-
-    /**
      * Checks if the password and confirm password EditTexts match
      *
      * @return True if passwords match. Otherwise false
@@ -175,12 +162,12 @@ public class SignupFragment extends Fragment implements View.OnClickListener {
 
 
     /**
-     * Gets value held in email EditText as a String
+     * Gets value held in verification code EditText as a String
      *
-     * @return Value of email EditText
+     * @return Value of verification code EditText
      */
-    public String getEmail() {
-        return userEmailEditText.getText().toString();
+    public String getCode() {
+        return codeEditText.getText().toString();
     }
 
 
@@ -200,14 +187,15 @@ public class SignupFragment extends Fragment implements View.OnClickListener {
      * @param text: Text to display in error TextView
      */
     public void setErrorText(String text) {
-        handler.post(new SignupFragment.SetErrorText(text));
+        handler.post(new ConfirmPasswordResetFragment.SetErrorText(text));
     }
+
 
     /**
      * Clears all editable text
      */
     public void clearText() {
-        userEmailEditText.setText("");
+        codeEditText.setText("");
         userPasswordEditText.setText("");
         userPasswordConfirmEditText.setText("");
         setErrorText("");

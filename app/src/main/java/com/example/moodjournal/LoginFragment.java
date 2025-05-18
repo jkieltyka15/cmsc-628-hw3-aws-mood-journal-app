@@ -199,4 +199,15 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
     public void setErrorText(String text) {
         handler.post(new LoginFragment.SetErrorText(text));
     }
+
+
+    /**
+     * Clears all editable text
+     */
+    public void clearText() {
+        userEmailEditText.setText("");
+        userPasswordEditText.setText("");
+        setErrorText("");
+    }
+
 }
