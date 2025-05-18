@@ -52,6 +52,20 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
     }
 
 
+    private class ClearText implements Runnable {
+
+        /**
+         * Clears all editable text
+         */
+        @Override
+        public void run() {
+            userEmailEditText.setText("");
+            userPasswordEditText.setText("");
+            errorTextView.setText("");
+        }
+    }
+
+
     /**
      * Called when fragment is attached
      *
@@ -205,9 +219,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
      * Clears all editable text
      */
     public void clearText() {
-        userEmailEditText.setText("");
-        userPasswordEditText.setText("");
-        setErrorText("");
+        handler.post(new LoginFragment.ClearText());
     }
 
 }

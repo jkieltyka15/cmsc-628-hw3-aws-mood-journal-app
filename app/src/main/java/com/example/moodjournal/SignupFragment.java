@@ -52,6 +52,21 @@ public class SignupFragment extends Fragment implements View.OnClickListener {
     }
 
 
+    private class ClearText implements Runnable {
+
+        /**
+         * Clears all editable text
+         */
+        @Override
+        public void run() {
+            userEmailEditText.setText("");
+            userPasswordEditText.setText("");
+            userPasswordConfirmEditText.setText("");
+            errorTextView.setText("");
+        }
+    }
+
+
     /**
      * Called when fragment is attached
      *
@@ -203,13 +218,11 @@ public class SignupFragment extends Fragment implements View.OnClickListener {
         handler.post(new SignupFragment.SetErrorText(text));
     }
 
+
     /**
      * Clears all editable text
      */
     public void clearText() {
-        userEmailEditText.setText("");
-        userPasswordEditText.setText("");
-        userPasswordConfirmEditText.setText("");
-        setErrorText("");
+        handler.post(new SignupFragment.ClearText());
     }
 }

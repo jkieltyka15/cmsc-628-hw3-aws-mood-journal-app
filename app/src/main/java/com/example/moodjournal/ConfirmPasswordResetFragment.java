@@ -51,6 +51,21 @@ public class ConfirmPasswordResetFragment extends Fragment implements View.OnCli
     }
 
 
+    private class ClearText implements Runnable {
+
+        /**
+         * Clears all editable text
+         */
+        @Override
+        public void run() {
+            codeEditText.setText("");
+            userPasswordEditText.setText("");
+            userPasswordConfirmEditText.setText("");
+            errorTextView.setText("");
+        }
+    }
+
+
     /**
      * Called when fragment is attached
      *
@@ -195,9 +210,6 @@ public class ConfirmPasswordResetFragment extends Fragment implements View.OnCli
      * Clears all editable text
      */
     public void clearText() {
-        codeEditText.setText("");
-        userPasswordEditText.setText("");
-        userPasswordConfirmEditText.setText("");
-        setErrorText("");
+        handler.post(new ConfirmPasswordResetFragment.ClearText());
     }
 }

@@ -49,6 +49,19 @@ public class ConfirmSignupFragment extends Fragment implements View.OnClickListe
     }
 
 
+    private class ClearText implements Runnable {
+
+        /**
+         * Clears all editable text
+         */
+        @Override
+        public void run() {
+            codeEditText.setText("");
+            errorTextView.setText("");
+        }
+    }
+
+
     /**
      * Called when fragment is attached
      *
@@ -162,11 +175,11 @@ public class ConfirmSignupFragment extends Fragment implements View.OnClickListe
         handler.post(new ConfirmSignupFragment.SetErrorText(text));
     }
 
+
     /**
      * Clears all editable text
      */
     public void clearText() {
-        codeEditText.setText("");
-        setErrorText("");
+        handler.post(new ConfirmSignupFragment.ClearText());
     }
 }

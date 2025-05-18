@@ -50,6 +50,19 @@ public class PasswordResetFragment extends Fragment implements View.OnClickListe
     }
 
 
+    private class ClearText implements Runnable {
+
+        /**
+         * Clears all editable text
+         */
+        @Override
+        public void run() {
+            emailEditText.setText("");
+            errorTextView.setText("");
+        }
+    }
+
+
     /**
      * Called when fragment is attached
      *
@@ -175,11 +188,11 @@ public class PasswordResetFragment extends Fragment implements View.OnClickListe
         handler.post(new PasswordResetFragment.SetErrorText(text));
     }
 
+
     /**
      * Clears all editable text
      */
     public void clearText() {
-        emailEditText.setText("");
-        setErrorText("");
+        handler.post(new PasswordResetFragment.ClearText());
     }
 }
