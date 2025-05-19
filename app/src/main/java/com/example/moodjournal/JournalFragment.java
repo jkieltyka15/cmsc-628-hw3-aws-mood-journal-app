@@ -201,4 +201,14 @@ public class JournalFragment extends Fragment implements View.OnClickListener {
             callback.onClick(fakeView);
         }
     }
+
+
+    /**
+     * Gets JournalFragment's EntryFragment
+     *
+     * @return JournalFragment's EntryFragment
+     */
+    public EntryFragment getEntryFragment() {
+        return entryFragment;
+    }
 }

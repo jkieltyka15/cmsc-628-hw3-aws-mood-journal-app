@@ -1,7 +1,6 @@
 package com.example.moodjournal.cognito;
 
 import android.content.Context;
-import android.widget.Toast;
 
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoDevice;
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUserSession;
@@ -43,7 +42,13 @@ public class CognitoAuthenticationHandler implements AuthenticationHandler {
      */
     @Override
     public void onSuccess(CognitoUserSession userSession, CognitoDevice newDevice) {
-        activity.signInSuccess();
+
+        // get all tokens
+        String accessToken = userSession.getAccessToken().getJWTToken();
+        String idToken = userSession.getIdToken().getJWTToken();
+        String refreshToken = userSession.getRefreshToken().getToken();
+
+        activity.signInSuccess(accessToken, idToken, refreshToken);
     }
 
 

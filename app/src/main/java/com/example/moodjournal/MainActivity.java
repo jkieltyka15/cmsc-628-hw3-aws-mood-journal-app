@@ -2,6 +2,7 @@ package com.example.moodjournal;
 
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -10,6 +11,17 @@ import androidx.fragment.app.Fragment;
 
 import com.amazonaws.regions.Regions;
 import com.example.moodjournal.cognito.CognitoHelper;
+import com.example.moodjournal.lambda.LambdaPostCallback;
+import com.google.gson.Gson;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.MediaType;
+
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -22,8 +34,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private final ConfirmSignupFragment confirmSignupFragment = new ConfirmSignupFragment();
     private final JournalFragment journalFragment = new JournalFragment();
 
-    private CognitoHelper cognitoHelper;    // manages cognito session and functions
-    private String currentUsername = "";    // username of current cognito user
+    private CognitoHelper cognitoHelper; // manages cognito session and functions
+    private String currentUsername = ""; // username of current cognito user
+    private String currentUserAccessToken = ""; // used for authorization
+    private String currentUserIdToken = ""; // used for identification
+    private String currentUserRefreshToken = ""; // used for re-authentication
 
 
     private class ChangeFragmentWork implements Runnable {
@@ -53,6 +68,30 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.fragment_container_main, fragment)
                     .commit();
+        }
+    }
+
+
+    private class MakeShortToastWork implements Runnable {
+
+        String message;
+
+        /**
+         * Constructs a new MakeShortToastWork object
+         *
+         * @param message: Message for toast
+         */
+        MakeShortToastWork(String message) {
+            this.message = message;
+        }
+
+
+        /**
+         * Creates a short toast message
+         */
+        @Override
+        public void run() {
+            Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -217,6 +256,58 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
     /**
+     * Perform actions to attempt to submit a journal entry via lambda
+     */
+    private void lambdaSubmitEntry() {
+
+        // get entry fragment
+        EntryFragment entryFragment = journalFragment.getEntryFragment();
+
+        // get data from entry fragment
+        String mood = entryFragment.getMood();
+        String notes = entryFragment.getNotes();
+
+        // initialize http client
+        OkHttpClient client = new OkHttpClient();
+
+        // create json payload
+        Map<String, String> payload = new HashMap<>();
+
+        // add mood to the payload
+        payload.put("mood", mood);
+
+        // add notes to the payload if there are any
+        if (!notes.isEmpty()) {
+            payload.put("notes", notes);
+        }
+
+        // initialize json object
+        Gson gson = new Gson();
+        String jsonBody = gson.toJson(payload);
+
+        // create the body
+        RequestBody body = RequestBody.create(
+                jsonBody,
+                MediaType.parse("application/json; charset=utf-8")
+        );
+
+        // get POST url
+        String url = getString(R.string.lambda_post_entry_url);
+
+        // build the POST request
+        Request request = new Request.Builder()
+                .url(url)
+                .addHeader("Authorization", "Bearer " + currentUserAccessToken)
+                .addHeader("Content-Type", "application/json")
+                .post(body)
+                .build();
+
+        // perform POST request
+        client.newCall(request).enqueue(new LambdaPostCallback(this));
+    }
+
+
+    /**
      * Called when Activity is created
      *
      * @param savedInstanceState: Most recent data in the save instance state or null
@@ -284,7 +375,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             // notify user request was sent
             final String passwordResetMsg = getString(R.string.cognito_password_reset_request_sent);
-            Toast.makeText(this, passwordResetMsg, Toast.LENGTH_SHORT).show();
+            handler.post(new MakeShortToastWork(passwordResetMsg));
 
             // clear all text fields
             passwordResetFragment.clearText();
@@ -360,7 +451,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             // notify user is signed out
             final String signOutMsg = getString(R.string.cognito_signed_out);
-            Toast.makeText(this, signOutMsg, Toast.LENGTH_SHORT).show();
+            handler.post(new MakeShortToastWork(signOutMsg));
+
+            // clear mood journal
+            journalFragment.getEntryFragment().clearEntry();
 
             // navigate to login
             handler.post(new ChangeFragmentWork(loginFragment));
@@ -368,7 +462,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         // submit button clicked in entry fragment
         else if (R.id.button_entry_submit == elementId) {
-
+            lambdaSubmitEntry();
         }
     }
 
@@ -376,14 +470,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     /**
      * Actions to perform when Cognito sign in is successful
      */
-    public void signInSuccess() {
+    public void signInSuccess(String accessToken, String idToken, String refreshToken) {
 
-        // save current username
+        // save current user credentials
         currentUsername = loginFragment.getEmail();
+        currentUserAccessToken = accessToken;
+        currentUserIdToken = idToken;
+        currentUserRefreshToken = refreshToken;
+
+        Log.d("currentUserAccessToken", currentUserAccessToken);
 
         // notify user is signed in
         final String signInMsg = getString(R.string.cognito_signed_in);
-        Toast.makeText(this, signInMsg, Toast.LENGTH_SHORT).show();
+        handler.post(new MakeShortToastWork(signInMsg));
 
         // clear all text field
         loginFragment.clearText();
@@ -414,7 +513,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         // notify user account was created
         final String accountCreatedMsg = getString(R.string.cognito_account_created);
-        Toast.makeText(this, accountCreatedMsg, Toast.LENGTH_SHORT).show();
+        handler.post(new MakeShortToastWork(accountCreatedMsg));
 
         // clear all text fields
         signupFragment.clearText();
@@ -442,7 +541,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         // notify user account is verified
         final String accountVerifiedMsg = getString(R.string.cognito_account_verified);
-        Toast.makeText(this, accountVerifiedMsg, Toast.LENGTH_SHORT).show();
+        handler.post(new MakeShortToastWork(accountVerifiedMsg));
 
         // clear all text fields
         confirmSignupFragment.clearText();
@@ -469,7 +568,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         // notify user password was reset
         final String passwordResetMsg = getString(R.string.cognito_password_reset);
-        Toast.makeText(this, passwordResetMsg, Toast.LENGTH_SHORT).show();
+        handler.post(new MakeShortToastWork(passwordResetMsg));
 
         // clear all text fields
         confirmPasswordResetFragment.clearText();
@@ -486,5 +585,32 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
      */
     public void passwordResetFailed(String message) {
         confirmPasswordResetFragment.setErrorText(message);
+    }
+
+
+    /**
+     * Actions to perform when posting a journal entry is successful
+     */
+    public void journalEntryPostSuccess() {
+
+        // notify user entry was saved
+        final String savedMsg = getString(R.string.lambda_entry_submitted);
+        handler.post(new MakeShortToastWork(savedMsg));
+
+        // get entry fragment
+        EntryFragment entryFragment = journalFragment.getEntryFragment();
+
+        // clear entry fragment
+        entryFragment.clearEntry();
+    }
+
+
+    /**
+     * Actions to perform when posting a journal entry fails
+     *
+     * @param message: Reason why posting journal entry failed
+     */
+    public void journalEntryPostFailed(String message) {
+        journalFragment.getEntryFragment().setErrorText(message);
     }
 }

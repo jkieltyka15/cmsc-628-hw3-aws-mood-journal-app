@@ -190,6 +190,27 @@ public class EntryFragment extends Fragment implements View.OnClickListener {
         }
     }
 
+
+    /**
+     * Gets current item in mood spinner as a String
+     *
+     * @return Value of current mood spinner item
+     */
+    public String getMood() {
+        return moodSpinner.getSelectedItem().toString();
+    }
+
+
+    /**
+     * Gets value held in notes EditText as a String
+     *
+     * @return Value of notes EditText
+     */
+    public String getNotes() {
+        return notesTextView.getText().toString();
+    }
+
+
     /**
      * Sets text in error TextView
      *

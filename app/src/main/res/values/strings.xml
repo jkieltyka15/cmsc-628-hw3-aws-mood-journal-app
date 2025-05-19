@@ -1,7 +1,10 @@
 <resources>
     <string name="app_name">Mood Journal</string>
+
     <string name="cognito_client_id">5t91lvlgb3hpr7k5qtjhqbvdrv</string>
     <string name="cognito_user_pool_id">us-east-1_cAv7eF3jD</string>
+
+    <string name="lambda_post_entry_url">https://migavqc4z7.execute-api.us-east-1.amazonaws.com/prod/submit</string>
 
     <string name="unknown_value">unknown</string>
 
@@ -65,8 +68,12 @@
     <string name="cognito_account_verified">Account Verified</string>
     <string name="cognito_password_reset">Password Reset</string>
     <string name="cognito_password_reset_request_sent">Password Reset Request Sent</string>
+
+    <string name="lambda_entry_submitted">Entry Submitted</string>
+
     <string name="invalid_email_error">Invalid email</string>
     <string name="no_password_error">Password is required</string>
     <string name="password_mismatch_error">Passwords do not match</string>
     <string name="no_code_error">Verification code is required</string>
+
 </resources>

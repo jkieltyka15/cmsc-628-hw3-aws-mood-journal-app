@@ -12,8 +12,6 @@ import com.example.moodjournal.R;
 
 public class CognitoHelper {
 
-    private static final Regions REGION = Regions.US_EAST_1;
-
     private final Context context;
     private final CognitoUserPool userPool;
     private final CognitoConfirmSignUpHandler confirmSignUpHandler;
