@@ -19,6 +19,7 @@ import android.widget.TextView;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Map;
 
 
 public class EntryFragment extends Fragment implements View.OnClickListener {
@@ -83,7 +84,6 @@ public class EntryFragment extends Fragment implements View.OnClickListener {
          */
         @Override
         public void run() {
-            dateTextView.setText("");
             notesTextView.setText("");
             errorTextView.setText("");
         }
@@ -226,5 +226,6 @@ public class EntryFragment extends Fragment implements View.OnClickListener {
      */
     public void clearEntry() {
         handler.post(new EntryFragment.ClearEntry());
+        handler.post(new EntryFragment.SetDateText());
     }
 }
