@@ -16,6 +16,8 @@ import android.widget.ImageButton;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
+import com.example.moodjournal.lambda.LambdaGetCallback;
+
 
 public class JournalFragment extends Fragment implements View.OnClickListener {
 
@@ -168,8 +170,15 @@ public class JournalFragment extends Fragment implements View.OnClickListener {
                 }
 
                 // navigate to history
-                if (R.id.toolbar_menu_history == itemId) {
+                if (R.id.toolbar_menu_history == itemId && null != callback) {
+
                     handler.post(new ChangeFragmentWork(R.string.toolbar_menu_history, historyFragment));
+
+                    // simulate a fake View with the correct ID
+                    View fakeView = new View(getContext());
+                    fakeView.setId(R.id.toolbar_menu_history);
+                    callback.onClick(fakeView);
+
                     return true;
                 }
 
@@ -210,5 +219,15 @@ public class JournalFragment extends Fragment implements View.OnClickListener {
      */
     public EntryFragment getEntryFragment() {
         return entryFragment;
+    }
+
+
+    /**
+     * Gets JournalFragment's HistoryFragment
+     *
+     * @return JournalFragment's HistoryFragment
+     */
+    public HistoryFragment getHistoryFragment() {
+        return historyFragment;
     }
 }

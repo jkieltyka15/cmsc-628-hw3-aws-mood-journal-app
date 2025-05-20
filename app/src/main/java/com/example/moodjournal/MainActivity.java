@@ -11,10 +11,16 @@ import androidx.fragment.app.Fragment;
 
 import com.amazonaws.regions.Regions;
 import com.example.moodjournal.cognito.CognitoHelper;
+import com.example.moodjournal.lambda.JournalEntry;
+import com.example.moodjournal.lambda.JournalErrorEntry;
+import com.example.moodjournal.lambda.LambdaGetCallback;
 import com.example.moodjournal.lambda.LambdaPostCallback;
 import com.google.gson.Gson;
 
 import java.util.HashMap;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Map;
 
 import okhttp3.OkHttpClient;
@@ -308,6 +314,33 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
     /**
+     * Perform actions to attempt to get journal entries via lambda
+     */
+    private void lambdaGetEntries() {
+
+        // initialize http client
+        OkHttpClient client = new OkHttpClient();
+
+        // get GET url
+        String url = getString(R.string.lambda_get_entries_url);
+
+        // build the GET request
+        Request request = new Request.Builder()
+                .url(url)
+                .addHeader("Authorization", "Bearer " + currentUserAccessToken)
+                .addHeader("Content-Type", "application/json")
+                .get()
+                .build();
+
+        // clear old entries
+        journalFragment.getHistoryFragment().updateJournalEntries(Collections.emptyList());
+
+        // perform GET request
+        client.newCall(request).enqueue(new LambdaGetCallback(this));
+    }
+
+
+    /**
      * Called when Activity is created
      *
      * @param savedInstanceState: Most recent data in the save instance state or null
@@ -443,7 +476,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             handler.post(new ChangeFragmentWork(signupFragment));
         }
 
-        // login text clicked in signup fragment
+        // sign out clicked in toolbar menu
         else if (R.id.toolbar_menu_sign_out == elementId) {
 
             // sign out current user
@@ -458,6 +491,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             // navigate to login
             handler.post(new ChangeFragmentWork(loginFragment));
+        }
+
+        // history clicked in toolbar menu
+        else if (R.id.toolbar_menu_history == elementId) {
+            lambdaGetEntries();
         }
 
         // submit button clicked in entry fragment
@@ -612,5 +650,28 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
      */
     public void journalEntryPostFailed(String message) {
         journalFragment.getEntryFragment().setErrorText(message);
+    }
+
+
+    /**
+     * Actions to perform when getting journal entries is successful
+     *
+     * @param entries: List of journal entries
+     */
+    public void journalEntriesGetSuccess(List<JournalEntry> entries) {
+        journalFragment.getHistoryFragment().updateJournalEntries(entries);
+    }
+
+
+    /**
+     * Actions to perform when posting a journal entry fails
+     *
+     * @param message: Reason why posting journal entry failed
+     */
+    public void journalEntriesGetFailed(String message) {
+
+        List<JournalEntry> errorList = new ArrayList<>();
+        errorList.add(new JournalErrorEntry(message));
+        journalFragment.getHistoryFragment().updateJournalEntries(errorList);
     }
 }

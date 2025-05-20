@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>               <!-- Black -->
-    <color name="white">#FFFFFFFF</color>               <!-- White -->
-    <color name="toolbar">#161D63</color>               <!-- Dark Royal Blue -->
-    <color name="toolbar_text">#FFFFFFFF</color>        <!-- White -->
-    <color name="error_text">#CC0000</color>            <!-- Red -->
-    <color name="theme_text">#161D63</color>            <!-- Dark Royal Blue -->
-    <color name="dark_text">#FF000000</color>           <!-- Black -->
-    <color name="hint_text">#6F7378</color>             <!-- Dark Gray -->
-    <color name="button_background">#161D63</color>     <!-- Dark Royal Blue -->
-    <color name="button_text">#FFFFFFFF</color>         <!-- White -->
-    <color name="spinner_background">#FFFFFFFF</color>  <!-- White -->
-    <color name="spinner_text">#FF000000</color>        <!-- Black -->
+    <color name="black">#FF000000</color>                   <!-- Black -->
+    <color name="white">#FFFFFFFF</color>                   <!-- White -->
+    <color name="toolbar">#161D63</color>                   <!-- Dark Royal Blue -->
+    <color name="toolbar_text">#FFFFFFFF</color>            <!-- White -->
+    <color name="error_text">#CC0000</color>                <!-- Red -->
+    <color name="theme_text">#161D63</color>                <!-- Dark Royal Blue -->
+    <color name="dark_text">#FF000000</color>               <!-- Black -->
+    <color name="hint_text">#6F7378</color>                 <!-- Dark Gray -->
+    <color name="button_background">#161D63</color>         <!-- Dark Royal Blue -->
+    <color name="button_text">#FFFFFFFF</color>             <!-- White -->
+    <color name="spinner_background">#FFFFFFFF</color>      <!-- White -->
+    <color name="spinner_text">#FF000000</color>            <!-- Black -->
+    <color name="entry_text">#FFFFFFFF</color>              <!-- White -->
+    <color name="journal_entry_background">#161D63</color>  <!-- Dark Royal Blue -->
+    <color name="error_entry_background">#CC0000</color>    <!-- Red -->
 </resources>

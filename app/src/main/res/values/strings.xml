@@ -5,8 +5,15 @@
     <string name="cognito_user_pool_id">us-east-1_cAv7eF3jD</string>
 
     <string name="lambda_post_entry_url">https://migavqc4z7.execute-api.us-east-1.amazonaws.com/prod/submit</string>
+    <string name="lambda_get_entries_url">https://migavqc4z7.execute-api.us-east-1.amazonaws.com/prod/entries</string>
 
     <string name="unknown_value">unknown</string>
+
+    <string name="journal_entry_mood_label">Mood: </string>
+    <string name="journal_entry_notes_label">Notes: </string>
+    <string name="journal_entry_timestamp_label">Submitted: </string>
+
+    <string name="history_no_entries">No journal entries yet.</string>
 
     <string name="button_toolbar_menu_description">Navigation Menu</string>
     <string name="toolbar_menu_entry">New Entry</string>
