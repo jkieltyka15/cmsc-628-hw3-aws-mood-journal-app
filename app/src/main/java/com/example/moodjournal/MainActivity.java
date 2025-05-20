@@ -2,7 +2,6 @@ package com.example.moodjournal;
 
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -510,13 +509,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
      */
     public void signInSuccess(String accessToken, String idToken, String refreshToken) {
 
+        // clear previous user
+        cognitoHelper.signOut();
+
         // save current user credentials
         currentUsername = loginFragment.getEmail();
         currentUserAccessToken = accessToken;
         currentUserIdToken = idToken;
         currentUserRefreshToken = refreshToken;
-
-        Log.d("currentUserAccessToken", currentUserAccessToken);
 
         // notify user is signed in
         final String signInMsg = getString(R.string.cognito_signed_in);
